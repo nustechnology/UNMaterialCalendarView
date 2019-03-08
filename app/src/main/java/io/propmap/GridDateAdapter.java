@@ -1,6 +1,11 @@
 package io.propmap;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +22,10 @@ import java.util.Map;
 public class GridDateAdapter extends BaseAdapter {
     private List<CalendarCustomObject> dateNumber;
     private Context context;
-    private List<Map<String, List<CalendarCustomObject>>> rangeDates;
+    private Map<String, List<CalendarCustomObject>> rangeDates;
 
-    GridDateAdapter(Context context, List<CalendarCustomObject> dateNumber, List<Map<String, List<CalendarCustomObject>>> rangeDates) {
+
+    GridDateAdapter(Context context, List<CalendarCustomObject> dateNumber, Map<String, List<CalendarCustomObject>> rangeDates) {
         this.dateNumber = dateNumber;
         this.context = context;
         this.rangeDates = rangeDates;
@@ -61,7 +67,7 @@ public class GridDateAdapter extends BaseAdapter {
             calendar.set(calendarCustomObject.getCalendar().get(Calendar.YEAR), calendarCustomObject.getCalendar().get(Calendar.MONTH), calendarCustomObject.getCalendar().get(Calendar.DATE));
             viewHolder.date.setText(String.valueOf(calendar.get(Calendar.DATE)));
             setCircle(viewHolder, calendarCustomObject.getCalendar().get(Calendar.DATE));
-//            setRoundedBackground(calendarCustomObject, viewHolder, rangeDates.get("DEMO"));
+            setRoundedBackground(calendarCustomObject, viewHolder, rangeDates.get("DEMO"));
         }
         return view;
     }

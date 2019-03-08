@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private GridView gridDate;
     private GridDateAdapter dateAdapter;
     private List<CalendarCustomObject> calendars = new ArrayList<>();
-    private List<Map<String, List<CalendarCustomObject>>> stringListMap;
+    private Map<String, List<CalendarCustomObject>> stringListMap;
     private Calendar currentCalendarForSettingUp = Calendar.getInstance();
     private int MAX_DATE;
     private int FIRST_DAY;
@@ -56,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupMockMapDate() {
-        stringListMap = new ArrayList<>();
-        Map<String, List<CalendarCustomObject>> listMap = new HashMap<>();
+        stringListMap = new HashMap<>();
         List<CalendarCustomObject> calendars = new ArrayList<>();
         for (int i = 2; i < 14; i++) {
             CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
@@ -71,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             calendarCustomObject.setCalendar(newCalendar1);
             calendars.add(calendarCustomObject);
         }
-        listMap.put("TYPE1", calendars);
-        stringListMap.add(listMap);
+        stringListMap.put("DEMO", calendars);
     }
 }
