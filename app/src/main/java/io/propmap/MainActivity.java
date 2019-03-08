@@ -2,6 +2,7 @@ package io.propmap;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.GridView;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private Calendar currentCalendarForSettingUp = Calendar.getInstance();
     private int MAX_DATE;
     private int FIRST_DAY;
+    private Button btnNext;
+    private int currentMonth;
 
 
     @Override
@@ -25,10 +28,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initUi();
+//        btnNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                new SimpleDateFormat("MMMM").format(date));
+//            }
+//        });
     }
 
     private void initUi() {
-        currentCalendarForSettingUp.set(currentCalendarForSettingUp.get(Calendar.YEAR), currentCalendarForSettingUp.get(Calendar.MONTH)-1, 1);
+        currentCalendarForSettingUp.set(currentCalendarForSettingUp.get(Calendar.YEAR),
+                currentCalendarForSettingUp.get(Calendar.MONTH) - 1,
+                1);
+        currentMonth = currentCalendarForSettingUp.get(Calendar.MONTH) + 1;
         MAX_DATE = currentCalendarForSettingUp.getActualMaximum(Calendar.DAY_OF_MONTH);
         FIRST_DAY = DateUtils.getFirstDay();
 
@@ -52,10 +64,12 @@ public class MainActivity extends AppCompatActivity {
             Calendar newCalendar = Calendar.getInstance();
             newCalendar.set(2019, newCalendar.get(Calendar.MONTH), j);
             calendarCustomObject.setCalendar(newCalendar);
-            if (j >= 2 && j < 6) {
+            if (j >= 2 && j <= 6) {
                 calendarCustomObject.setType("HOLIDAY");
             } else if (j >= 19 && j <= 24) {
                 calendarCustomObject.setType("SICK");
+            } else if (j >= 12 && j <= 14) {
+                calendarCustomObject.setType("OTHERS");
             }
             this.calendars.add(calendarCustomObject);
         }
@@ -63,41 +77,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupMockMapDate() {
         stringListMap = new ArrayList<>();
-
         Map<String, List<CalendarCustomObject>> listMap = new HashMap<>();
-        List<CalendarCustomObject> calendars = new ArrayList<>();
-        for (int i = 2; i < 6; i++) {
+        stringListMap.add(addNewCalendarCustomObject(2, 6, "HOLIDAY", "#e4fffd", "#3ab9ad"));
+
+        stringListMap.add(addNewCalendarCustomObject(19, 24, "SICK", "#fff5e6", "#ff5a3c"));
+
+        stringListMap.add(addNewCalendarCustomObject(12, 14, "OTHERS", "#ebebeb", "#838383"));
+    }
+
+    private Map<String, List<CalendarCustomObject>> addNewCalendarCustomObject(int begin, int end, String type,
+                                                                               String colorBackground, String colorStroke) {
+        Map<String, List<CalendarCustomObject>> map = new HashMap<>();
+        List<CalendarCustomObject> calendarCustomObjects = new ArrayList<>();
+        for (int i = begin; i <= end; i++) {
             CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
 
-            Calendar newCalendar1 = Calendar.getInstance();
-            newCalendar1.set(newCalendar1.get(Calendar.YEAR), newCalendar1.get(Calendar.MONTH), i);
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.set(calendar1.get(Calendar.YEAR), calendar1.get(Calendar.MONTH), i);
 
-            calendarCustomObject.setColorBackground("#e4fffd");
-            calendarCustomObject.setColorStroke("#3ab9ad");
+            calendarCustomObject.setColorBackground(colorBackground);
+            calendarCustomObject.setColorStroke(colorStroke);
             calendarCustomObject.setWidthStroke(5);
-            calendarCustomObject.setCalendar(newCalendar1);
-            calendarCustomObject.setType("HOLIDAY");
-            calendars.add(calendarCustomObject);
+            calendarCustomObject.setType(type);
+            calendarCustomObject.setCalendar(calendar1);
+            calendarCustomObjects.add(calendarCustomObject);
         }
-        listMap.put("HOLIDAY", calendars);
-        stringListMap.add(listMap);
-
-        Map<String, List<CalendarCustomObject>> listMap1 = new HashMap<>();
-        List<CalendarCustomObject> calendars1 = new ArrayList<>();
-        for (int i = 19; i < 24; i++) {
-            CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
-
-            Calendar newCalendar1 = Calendar.getInstance();
-            newCalendar1.set(newCalendar1.get(Calendar.YEAR), newCalendar1.get(Calendar.MONTH), i);
-
-            calendarCustomObject.setColorBackground("#fff5e6");
-            calendarCustomObject.setColorStroke("#ffa53c");
-            calendarCustomObject.setWidthStroke(5);
-            calendarCustomObject.setType("SICK");
-            calendarCustomObject.setCalendar(newCalendar1);
-            calendars1.add(calendarCustomObject);
-        }
-        listMap1.put("SICK", calendars1);
-        stringListMap.add(listMap1);
+        map.put(type, calendarCustomObjects);
+        return map;
     }
 }
