@@ -1,11 +1,6 @@
 package io.propmap;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +13,14 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class GridDateAdapter extends BaseAdapter {
     private List<CalendarCustomObject> dateNumber;
     private Context context;
-    private Map<String, List<CalendarCustomObject>> rangeDates;
+    private List<Map<String, List<CalendarCustomObject>>> rangeDates;
 
-
-    GridDateAdapter(Context context, List<CalendarCustomObject> dateNumber, Map<String, List<CalendarCustomObject>> rangeDates) {
+    GridDateAdapter(Context context, List<CalendarCustomObject> dateNumber, List<Map<String, List<CalendarCustomObject>>> rangeDates) {
         this.dateNumber = dateNumber;
         this.context = context;
         this.rangeDates = rangeDates;
@@ -64,12 +59,30 @@ public class GridDateAdapter extends BaseAdapter {
         }
         if (calendarCustomObject != null && calendarCustomObject.getCalendar() != null) {
             Calendar calendar = Calendar.getInstance();
-            calendar.set(calendarCustomObject.getCalendar().get(Calendar.YEAR), calendarCustomObject.getCalendar().get(Calendar.MONTH), calendarCustomObject.getCalendar().get(Calendar.DATE));
+            calendar.set(calendarCustomObject.getCalendar().get(Calendar.YEAR), calendarCustomObject.getCalendar().get(Calendar.MONTH),
+                    calendarCustomObject.getCalendar().get(Calendar.DATE));
             viewHolder.date.setText(String.valueOf(calendar.get(Calendar.DATE)));
             setCircle(viewHolder, calendarCustomObject.getCalendar().get(Calendar.DATE));
-            setRoundedBackground(calendarCustomObject, viewHolder, rangeDates.get("DEMO"));
+            Map<String, List<CalendarCustomObject>> map = getCurrentCalendarObjectBelongTo(rangeDates, calendarCustomObject);
+            if (map != null) {
+                setRoundedBackground(calendarCustomObject, viewHolder,
+                        map.get(calendarCustomObject.getType()));
+            }
         }
         return view;
+    }
+
+    private Map<String, List<CalendarCustomObject>> getCurrentCalendarObjectBelongTo(List<Map<String, List<CalendarCustomObject>>> mapList,
+                                                                                     CalendarCustomObject calendarCustomObject) {
+        if (calendarCustomObject == null || calendarCustomObject.getType() == null || calendarCustomObject.getType().isEmpty()) {
+            return null;
+        }
+        for (Map<String, List<CalendarCustomObject>> map : mapList) {
+            if (calendarCustomObject.getType().equals(Objects.requireNonNull(map.keySet().toArray())[0])) {
+                return map;
+            }
+        }
+        return null;
     }
 
     private void setRoundedBackground(CalendarCustomObject calendarCustomObject, ViewHolder viewHolder, List<CalendarCustomObject> calendarCORange) {
