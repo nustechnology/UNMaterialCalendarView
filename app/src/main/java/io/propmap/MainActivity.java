@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo);
+
         unMultiRangeCalendarView = findViewById(R.id.multiRangeUraNashelCalendar);
 
         List<CalendarCustomObject> calendarCustomObjects = new ArrayList<>();
