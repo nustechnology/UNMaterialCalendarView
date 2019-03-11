@@ -1,4 +1,4 @@
-package io.propmap;
+package nguyenngoctan44.io.uranashel_multirangecalendarview;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -173,3 +173,4 @@ public class GridDateAdapter extends BaseAdapter {
         LinearLayout container;
     }
 }
+

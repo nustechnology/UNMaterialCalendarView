@@ -7,7 +7,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.view.View;
 
-public class UIUtils {
+class UIUtils {
     static void setColorBackground(View view, String colorBackground, String colorStroke) {
         Drawable background = view.getBackground();
         if (background instanceof ShapeDrawable) {

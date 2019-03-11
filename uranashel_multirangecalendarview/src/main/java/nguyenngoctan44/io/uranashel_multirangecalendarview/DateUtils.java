@@ -1,6 +1,4 @@
-package io.propmap;
-
-import android.util.Log;
+package nguyenngoctan44.io.uranashel_multirangecalendarview;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -112,3 +110,4 @@ class DateUtils {
     }
 
 }
+
