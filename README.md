@@ -1,5 +1,8 @@
 # CustomCalendarView
 Hi everyone, this is the first library support multirange for calendar view.
+
+This will be updated more function in the nearest future. Dont be messed up with multirange, will be cool!
+
 How to install:
 
 ***implementation 'com.github.ngoctan95:CustomCalendarView:{version}'***
