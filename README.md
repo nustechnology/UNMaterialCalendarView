@@ -40,6 +40,10 @@ How to use this lib:
             calendarCustomObjects.add(calendarCustomObject);
         }
         unMultiRangeCalendarView.setCommonDatesDataInAMonth(calendarCustomObjects);
+        unMultiRangeCalendarView.setColorBackgroundCalendar("#ffffff");
+        unMultiRangeCalendarView.setTextSize(13);
+        unMultiRangeCalendarView.setTextColor("#000000");
+        unMultiRangeCalendarView.setStrokeColorCircle("#363636");
         unMultiRangeCalendarView.build();
 
     }
