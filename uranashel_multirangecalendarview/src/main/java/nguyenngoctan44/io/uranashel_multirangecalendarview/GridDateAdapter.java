@@ -214,7 +214,7 @@ public class GridDateAdapter extends BaseAdapter {
     private static class ViewHolder {
         TextView date;
         LinearLayout containerCircle;
-        FrameLayout containerDate;
+        LinearLayout containerDate;
         LinearLayout container;
     }
 }
