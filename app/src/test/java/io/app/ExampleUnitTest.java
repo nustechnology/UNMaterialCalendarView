@@ -1,4 +1,4 @@
-package io.propmap;
+package io.app;
 
 import org.junit.Test;
 

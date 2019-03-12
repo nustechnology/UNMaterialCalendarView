@@ -1,4 +1,4 @@
-package io.propmap;
+package io.app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 4; i++) {
             CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
 
-            calendarCustomObject.setType(Arrays.asList(types).get(0));
+            calendarCustomObject.setType(Arrays.asList(types).get(i));
             calendarCustomObject.setColorBackground("#e4fffd");
             calendarCustomObject.setColorStroke("#00aa9c");
 
