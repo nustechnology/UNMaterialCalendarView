@@ -11,6 +11,7 @@ import java.util.List;
 import nguyenngoctan44.io.uranashel_multirangecalendarview.CalendarCustomObject;
 import nguyenngoctan44.io.uranashel_multirangecalendarview.UNMultiRangeCalendarView;
 
+
 public class MainActivity extends AppCompatActivity {
     private UNMultiRangeCalendarView unMultiRangeCalendarView;
     private String[] types = new String[]{"SICK", "BANK", "HOLIDAY", "OTHERS"};
@@ -28,10 +29,9 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 4; i++) {
             CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
 
-
-            calendarCustomObject.setType(Arrays.asList(types).get(i));
-            calendarCustomObject.setColorBackground(Arrays.asList(colors).get(i));
-            calendarCustomObject.setColorStroke("#26b3a6");
+            calendarCustomObject.setType(Arrays.asList(types).get(0));
+            calendarCustomObject.setColorBackground("#e4fffd");
+            calendarCustomObject.setColorStroke("#00aa9c");
 
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.YEAR, 2019);
@@ -43,7 +43,10 @@ public class MainActivity extends AppCompatActivity {
             calendarCustomObjects.add(calendarCustomObject);
         }
         unMultiRangeCalendarView.setCommonDatesDataInAMonth(calendarCustomObjects);
+        unMultiRangeCalendarView.setColorBackgroundCalendar("#ffffff");
+        unMultiRangeCalendarView.setTextSize(13);
+        unMultiRangeCalendarView.setTextColor("#000000");
+        unMultiRangeCalendarView.setStrokeColorCircle("#363636");
         unMultiRangeCalendarView.build();
-
     }
 }

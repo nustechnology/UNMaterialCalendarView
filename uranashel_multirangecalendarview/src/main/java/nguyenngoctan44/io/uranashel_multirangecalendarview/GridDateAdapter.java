@@ -1,6 +1,8 @@
 package nguyenngoctan44.io.uranashel_multirangecalendarview;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,11 +24,34 @@ public class GridDateAdapter extends BaseAdapter {
     private List<CalendarCustomObject> dateNumber;
     private Context context;
     private List<Map<String, List<CalendarCustomObject>>> rangeDates;
+    private String dateColor = "#000000";
+    private int dateSize = 14;
+    private String strokeCircleColor = "#000000";
 
     GridDateAdapter(Context context, List<CalendarCustomObject> dateNumber, List<Map<String, List<CalendarCustomObject>>> rangeDates) {
         this.dateNumber = dateNumber;
         this.context = context;
         this.rangeDates = rangeDates;
+    }
+
+    GridDateAdapter(Context context, List<CalendarCustomObject> dateNumber, List<Map<String, List<CalendarCustomObject>>> rangeDates,
+                    String dateColor, Integer dateSize, String strokeCircleColor) {
+        this.dateNumber = dateNumber;
+        this.context = context;
+        this.rangeDates = rangeDates;
+        this.dateColor = dateColor;
+        this.dateSize = dateSize;
+        this.strokeCircleColor = strokeCircleColor;
+    }
+
+    void onNewTextColorChange(String color) {
+        this.dateColor = color;
+        this.notifyDataSetChanged();
+    }
+
+    void onNewTextSizeChange(int size) {
+        this.dateSize = size;
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -65,6 +90,8 @@ public class GridDateAdapter extends BaseAdapter {
             calendar.set(calendarCustomObject.getCalendar().get(Calendar.YEAR), calendarCustomObject.getCalendar().get(Calendar.MONTH),
                     calendarCustomObject.getCalendar().get(Calendar.DATE));
             viewHolder.date.setText(String.valueOf(calendar.get(Calendar.DATE)));
+            viewHolder.date.setTextSize(dateSize);
+            viewHolder.date.setTextColor(Color.parseColor(dateColor));
             setCircle(viewHolder, calendarCustomObject.getCalendar());
             Map<String, List<CalendarCustomObject>> map = getCurrentCalendarObjectBelongTo(rangeDates, calendarCustomObject);
             if (map != null) {
@@ -73,6 +100,7 @@ public class GridDateAdapter extends BaseAdapter {
                         CalendarCustomObject tempCal = Objects.requireNonNull(map.get(calendarCustomObject.getType())).get(0);
                         viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.square));
                         setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                        viewHolder.container.setPadding(0, -15, 0, -15);
 
                         CalendarCustomObject customObjectNext = (i + 1 >= dateNumber.size() ? null : dateNumber.get(i + 1));
                         CalendarCustomObject customObjectPre = (i - 1 < 0 ? null : dateNumber.get(i - 1));
@@ -102,6 +130,7 @@ public class GridDateAdapter extends BaseAdapter {
                             } else {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_rounded));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                                setMarginForView(viewHolder.container, 5);
                             }
                         }
                         if (customObjectNext != null && customObjectPre != null) {
@@ -117,6 +146,7 @@ public class GridDateAdapter extends BaseAdapter {
                             } else {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_rounded));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                                setMarginForView(viewHolder.container, 5);
                             }
                         }
                     }
@@ -124,9 +154,15 @@ public class GridDateAdapter extends BaseAdapter {
                     Log.e("UraNashel error: ", e.getMessage());
                 }
             }
-
         }
         return view;
+    }
+
+    private void setMarginForView(View view, int marginSide) {
+        if (view instanceof LinearLayout) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
+            params.setMargins(marginSide, 0, marginSide, 0);
+        }
     }
 
     private Map<String, List<CalendarCustomObject>> getCurrentCalendarObjectBelongTo(List<Map<String, List<CalendarCustomObject>>> mapList,
@@ -157,12 +193,21 @@ public class GridDateAdapter extends BaseAdapter {
         }
     }
 
+    private void setColorStroke(View view, String strokeColor) {
+        if (strokeColor == null) {
+            return;
+        }
+        UIUtils.setColorBackground(view, "#00FFFFFF", strokeColor);
+    }
+
     private void setCircle(ViewHolder viewHolder, Calendar compareDate) {
         Calendar calendar = DateUtils.getCurrentDate();
         if (compareDate.get(Calendar.DATE) == calendar.get(Calendar.DATE) &&
                 compareDate.get(Calendar.YEAR) == calendar.get(Calendar.YEAR) &&
                 compareDate.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
             viewHolder.date.setBackground(ContextCompat.getDrawable(context, R.drawable.circle));
+            viewHolder.date.setTypeface(null, Typeface.BOLD);
+            setColorStroke(viewHolder.date, strokeCircleColor);
         }
     }
 

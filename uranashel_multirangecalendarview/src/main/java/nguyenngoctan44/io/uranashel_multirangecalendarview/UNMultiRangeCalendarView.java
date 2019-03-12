@@ -2,6 +2,7 @@ package nguyenngoctan44.io.uranashel_multirangecalendarview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,9 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
     private int MAX_DATE;
     private int FIRST_DAY;
     private String colorBackgroundCalendar = "#FFFFFF";
+    private int textSize = 14;
+    private String textColor = "#000000";
+    private String strokeColorCircle = "#000000";
 
     public UNMultiRangeCalendarView(Context context) {
         super(context);
@@ -54,6 +58,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         btnPrevious = findViewById(R.id.btnPrevious);
         gridDate = findViewById(R.id.gridDate);
 
+        gridDate.setBackgroundColor(Color.parseColor(getColorBackgroundCalendar()));
         initData();
         regEvents();
     }
@@ -74,10 +79,6 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
                     calendar.get(Calendar.YEAR), calendarCustomObject.getType(), calendarCustomObject.getColorBackground(), calendarCustomObject.getColorStroke()));
         }
         setupMockCalendar(calendarCustomObjectsHasBeenMarked);
-    }
-
-    private void setColorBackground(String color) {
-        setColorBackgroundCalendar(color);
     }
 
     private void settingDeltaDates() {
@@ -117,9 +118,32 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         }
     }
 
+    public int getTextSize() {
+        return textSize;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
+    }
+
+    public String getTextColor() {
+        return textColor;
+    }
+
+    public void setTextColor(String textColor) {
+        this.textColor = textColor;
+    }
+
+    public String getStrokeColorCircle() {
+        return strokeColorCircle;
+    }
+
+    public void setStrokeColorCircle(String strokeColorCircle) {
+        this.strokeColorCircle = strokeColorCircle;
+    }
 
     public void build() {
-        gridDateAdapter = new GridDateAdapter(getContext(), calendars, stringListMap);
+        gridDateAdapter = new GridDateAdapter(getContext(), calendars, stringListMap, getTextColor(), getTextSize(), getStrokeColorCircle());
         gridDate.setAdapter(gridDateAdapter);
     }
 
@@ -154,13 +178,14 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         this.currentYear = currentYear;
     }
 
+    @SuppressLint("SetTextI18n")
     private void settingDate() {
         currentCalendar.set(getCurrentYear(),
                 getCurrentMonth(),
                 1);
         MAX_DATE = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         FIRST_DAY = DateUtils.getFirstDay(currentMonth, currentYear);
-        textTime.setText(new DateFormatSymbols().getMonths()[currentMonth] + "-" + currentYear);
+        textTime.setText(new DateFormatSymbols().getMonths()[currentMonth] + " " + currentYear);
     }
 
     private Map<String, List<CalendarCustomObject>> addNewCalendarCustomObject(int date, int month, int year, String type,
@@ -189,6 +214,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
 
     public void setColorBackgroundCalendar(String colorBackgroundCalendar) {
         this.colorBackgroundCalendar = colorBackgroundCalendar;
+        gridDate.setBackgroundColor(Color.parseColor(getColorBackgroundCalendar()));
     }
 
     @SuppressLint("SetTextI18n")
@@ -201,7 +227,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         settingDate();
         setupMockCalendar(customObjectArrayList);
 
-        textTime.setText(new DateFormatSymbols().getMonths()[currentMonth] + "-" + currentYear);
+        textTime.setText(new DateFormatSymbols().getMonths()[currentMonth] + "  " + currentYear);
         build();
     }
 
@@ -216,7 +242,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         setupMockCalendar(customObjectArrayList);
         gridDateAdapter = new GridDateAdapter(getContext(), calendars, stringListMap);
         gridDate.setAdapter(gridDateAdapter);
-        textTime.setText(new DateFormatSymbols().getMonths()[currentMonth] + "-" + currentYear);
+        textTime.setText(new DateFormatSymbols().getMonths()[currentMonth] + "  " + currentYear);
         build();
     }
 

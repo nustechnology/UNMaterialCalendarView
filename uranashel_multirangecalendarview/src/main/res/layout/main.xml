@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="horizontal"
@@ -24,7 +24,7 @@
                 android:id="@+id/btnPrevious"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+                android:background="@drawable/ic_round_chevron_left_24px"/>
         </LinearLayout>
 
         <LinearLayout
@@ -35,12 +35,14 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/textTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:id="@+id/textTime"
-                android:text="Time"/>
+                android:textStyle="bold"
+                android:textColor="#43425D"
+                android:text="@string/today"/>
         </LinearLayout>
 
         <LinearLayout
@@ -53,7 +55,7 @@
                 android:id="@+id/btnNext"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                android:background="@drawable/ic_round_chevron_right_24px"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -68,63 +70,79 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Su"/>
+            android:text="@string/su"
+            android:textColor="@color/date_index"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Mo"/>
+            android:text="@string/mo"
+            android:textColor="@color/date_index"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Tu"/>
+            android:text="@string/tu"
+            android:textColor="@color/date_index"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="We"/>
+            android:text="@string/we"
+            android:textColor="@color/date_index"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Th"/>
+            android:text="@string/we"
+            android:textColor="@color/date_index"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Fr"/>
+            android:text="@string/fr"
+            android:textColor="@color/date_index"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Sa"/>
+            android:text="@string/sa"
+            android:textColor="@color/date_index"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.75dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:alpha="0.2"
         android:background="#000000"/>
 
     <GridView
         android:id="@+id/gridDate"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:numColumns="7"/>
+        android:numColumns="7"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="-20dp"/>
 </LinearLayout>

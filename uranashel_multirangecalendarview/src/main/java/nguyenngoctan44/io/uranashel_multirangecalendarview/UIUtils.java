@@ -1,15 +1,18 @@
 package nguyenngoctan44.io.uranashel_multirangecalendarview;
 
 import android.graphics.Color;
+import android.graphics.ImageFormat;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 class UIUtils {
     static void setColorBackground(View view, String colorBackground, String colorStroke) {
+        Log.d("====", String.valueOf(view.getBackground()));
         try {
             Drawable background = view.getBackground();
             if (background instanceof ShapeDrawable) {
