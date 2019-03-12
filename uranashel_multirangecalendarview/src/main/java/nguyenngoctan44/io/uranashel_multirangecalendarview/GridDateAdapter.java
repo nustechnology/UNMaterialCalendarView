@@ -44,16 +44,6 @@ public class GridDateAdapter extends BaseAdapter {
         this.strokeCircleColor = strokeCircleColor;
     }
 
-    void onNewTextColorChange(String color) {
-        this.dateColor = color;
-        this.notifyDataSetChanged();
-    }
-
-    void onNewTextSizeChange(int size) {
-        this.dateSize = size;
-        this.notifyDataSetChanged();
-    }
-
     @Override
     public int getCount() {
         return dateNumber.size();
@@ -79,7 +69,6 @@ public class GridDateAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.item_date, null);
             viewHolder.date = view.findViewById(R.id.dateNumber);
             viewHolder.containerCircle = view.findViewById(R.id.containerCircle);
-            viewHolder.containerDate = view.findViewById(R.id.containerDate);
             viewHolder.container = view.findViewById(R.id.container);
             view.setTag(viewHolder);
         } else {
@@ -214,7 +203,6 @@ public class GridDateAdapter extends BaseAdapter {
     private static class ViewHolder {
         TextView date;
         LinearLayout containerCircle;
-        LinearLayout containerDate;
         LinearLayout container;
     }
 }
