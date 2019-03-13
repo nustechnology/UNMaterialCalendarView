@@ -233,12 +233,12 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         setCurrentMonth(currentMonth + 1);
         if (getCurrentMonth() > 11) {
             setCurrentMonth(0);
-            setCurrentYear(currentYear++);
+            setCurrentYear(currentYear + 1);
         }
         settingDate();
         setupMockCalendar(customObjectArrayList);
 
-        textTime.setText(new DateFormatSymbols().getMonths()[currentMonth] + "  " + currentYear);
+        textTime.setText(new DateFormatSymbols().getMonths()[getCurrentMonth()] + "  " + getCurrentYear());
         build();
     }
 
@@ -247,13 +247,13 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         setCurrentMonth(currentMonth - 1);
         if (getCurrentMonth() < 0) {
             setCurrentMonth(11);
-            setCurrentYear(currentYear--);
+            setCurrentYear(currentYear - 1);
         }
         settingDate();
         setupMockCalendar(customObjectArrayList);
         gridDateAdapter = new GridDateAdapter(getContext(), calendars, stringListMap);
         gridDate.setAdapter(gridDateAdapter);
-        textTime.setText(new DateFormatSymbols().getMonths()[currentMonth] + "  " + currentYear);
+        textTime.setText(new DateFormatSymbols().getMonths()[getCurrentMonth()] + "  " + getCurrentYear());
         build();
     }
 
