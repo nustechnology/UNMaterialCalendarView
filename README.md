@@ -72,3 +72,5 @@ How to use this lib:
         unMultiRangeCalendarView.setVerticalSpacing(-60); // Any value what you want to reduce the spacing between row in gridview
         unMultiRangeCalendarView.build();
     }
+
+***Note: Do not use the color format with 3 characters. Let use with full 6 characters, like here: #xxxxxx, not #xxx
