@@ -33,6 +33,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
     private int textSize = 14;
     private String textColor = "#000000";
     private String strokeColorCircle = "#000000";
+    private int verticalSpacing = -60;
 
     public UNMultiRangeCalendarView(Context context) {
         super(context);
@@ -59,6 +60,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         gridDate = findViewById(R.id.gridDate);
 
         gridDate.setBackgroundColor(Color.parseColor(getColorBackgroundCalendar()));
+        gridDate.setVerticalSpacing(getVerticalSpacing());
         initData();
         regEvents();
     }
@@ -126,6 +128,14 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         this.textSize = textSize;
     }
 
+    public int getVerticalSpacing() {
+        return verticalSpacing;
+    }
+
+    public void setVerticalSpacing(int verticalSpacing) {
+        this.verticalSpacing = verticalSpacing;
+    }
+
     public String getTextColor() {
         return textColor;
     }
@@ -144,6 +154,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
 
     public void build() {
         gridDateAdapter = new GridDateAdapter(getContext(), calendars, stringListMap, getTextColor(), getTextSize(), getStrokeColorCircle());
+        gridDate.setVerticalSpacing(getVerticalSpacing());
         gridDate.setAdapter(gridDateAdapter);
     }
 

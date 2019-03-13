@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         unMultiRangeCalendarView.setTextSize(13);
         unMultiRangeCalendarView.setTextColor("#000000");
         unMultiRangeCalendarView.setStrokeColorCircle("#363636");
+        unMultiRangeCalendarView.setVerticalSpacing(-60); // Any value what you want to reduce the spacing between row in gridview
         unMultiRangeCalendarView.build();
     }
 }
