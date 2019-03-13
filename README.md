@@ -25,33 +25,50 @@ How to use this lib:
         String[] types = new String[]{"Who", "Are", "You", "Guys"};
         String[] colors = new String[]{"#6abd45", "#e4fffd", "#e4fffd", "#6abd45"};
 
-        unMultiRangeCalendarView = findViewById(R.id.multiRangeUraNashelCalendar);
+       List<CalendarCustomObject> calendarCustomObjects = new ArrayList<>();
 
-        List<CalendarCustomObject> calendarCustomObjects = new ArrayList<>();
+        CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
+        UNCalendar unCalendar;
 
-        for (int i = 0; i < 4; i++) {
-            CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
+        calendarCustomObject.setType(Arrays.asList(types).get(0));
+        calendarCustomObject.setColorBackground("#e4fffd");
+        calendarCustomObject.setColorStroke("#00aa9c");
+        unCalendar = new UNCalendar(2018, 12, 12);
+        calendarCustomObject.setUNCalendar(unCalendar);
+        calendarCustomObjects.add(calendarCustomObject);
 
 
-            calendarCustomObject.setType(Arrays.asList(types).get(i));
-            calendarCustomObject.setColorBackground(Arrays.asList(colors).get(i));
-            calendarCustomObject.setColorStroke("#26b3a6");
+        calendarCustomObject = new CalendarCustomObject();
+        calendarCustomObject.setType(Arrays.asList(types).get(0));
+        calendarCustomObject.setColorBackground("#e4fffd");
+        calendarCustomObject.setColorStroke("#00aa9c");
+        unCalendar = new UNCalendar(2019, 1, 30);
+        calendarCustomObject.setUNCalendar(unCalendar);
+        calendarCustomObjects.add(calendarCustomObject);
 
-            Calendar UNCalendar = Calendar.getInstance();
-            UNCalendar.set(Calendar.YEAR, 2019);
-            UNCalendar.set(Calendar.MONTH, i <= 1 ? 3 : 4);
-            UNCalendar.set(Calendar.DATE, i + 1);
+        calendarCustomObject = new CalendarCustomObject();
+        calendarCustomObject.setType(Arrays.asList(types).get(0));
+        calendarCustomObject.setColorBackground("#e4fffd");
+        calendarCustomObject.setColorStroke("#00aa9c");
+        unCalendar = new UNCalendar(2019, 1, 31);
+        calendarCustomObject.setUNCalendar(unCalendar);
+        calendarCustomObjects.add(calendarCustomObject);
 
-            calendarCustomObject.setCalendar(UNCalendar);
 
-            calendarCustomObjects.add(calendarCustomObject);
-        }
+        calendarCustomObject = new CalendarCustomObject();
+        calendarCustomObject.setType(Arrays.asList(types).get(0));
+        calendarCustomObject.setColorBackground("#e4fffd");
+        calendarCustomObject.setColorStroke("#00aa9c");
+        unCalendar = new UNCalendar(2019, 3, 12);
+        calendarCustomObject.setUNCalendar(unCalendar);
+        calendarCustomObjects.add(calendarCustomObject);
+
+
         unMultiRangeCalendarView.setCommonDatesDataInAMonth(calendarCustomObjects);
         unMultiRangeCalendarView.setColorBackgroundCalendar("#ffffff");
         unMultiRangeCalendarView.setTextSize(13);
         unMultiRangeCalendarView.setTextColor("#000000");
         unMultiRangeCalendarView.setStrokeColorCircle("#363636");
-        unMultiRangeCalendarView.setVerticalSpacing(-60) //Any val what you want to reduce spacing in row
+        unMultiRangeCalendarView.setVerticalSpacing(-60); // Any value what you want to reduce the spacing between row in gridview
         unMultiRangeCalendarView.build();
-
     }
