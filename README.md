@@ -5,7 +5,7 @@ This will be updated more function in the nearest future. Dont be messed up with
 
 How to install:
 
-***implementation 'com.github.ngoctan95:CustomCalendarView:{version}'***
+***implementation 'com.github.ngoctan95:CustomCalendarView:{lastest-version}'***
     
 How to use this lib:
     
@@ -51,6 +51,7 @@ How to use this lib:
         unMultiRangeCalendarView.setTextSize(13);
         unMultiRangeCalendarView.setTextColor("#000000");
         unMultiRangeCalendarView.setStrokeColorCircle("#363636");
+        unMultiRangeCalendarView.setVerticalSpacing(-60) //Any val what you want to reduce spacing in row
         unMultiRangeCalendarView.build();
 
     }
