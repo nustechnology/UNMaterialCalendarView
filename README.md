@@ -9,6 +9,13 @@ How to install:
     
 How to use this lib:
     
+    ***In xml file***:
+        <nguyenngoctan44.io.uranashel_multirangecalendarview.UNMultiRangeCalendarView
+            android:id="@+id/calenderView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    ***In class***:
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
