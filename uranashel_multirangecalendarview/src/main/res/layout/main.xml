@@ -142,6 +142,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:verticalSpacing="-10"
+        android:verticalSpacing="-10dp"
         android:numColumns="7"/>
 </LinearLayout>
