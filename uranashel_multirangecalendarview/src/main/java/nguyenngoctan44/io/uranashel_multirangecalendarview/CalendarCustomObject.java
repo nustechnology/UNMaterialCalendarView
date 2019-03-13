@@ -1,16 +1,15 @@
 package nguyenngoctan44.io.uranashel_multirangecalendarview;
 
-import java.util.Calendar;
 
 public class CalendarCustomObject {
-    private Calendar calendar;
+    private UNCalendar UNCalendar;
     private String colorBackground;
     private String colorStroke;
     private Integer widthStroke;
     private String type;
 
-    public CalendarCustomObject(Calendar calendar, String colorBackground, String colorStroke, Integer widthStroke, String type) {
-        this.calendar = calendar;
+    public CalendarCustomObject(UNCalendar UNCalendar, String colorBackground, String colorStroke, Integer widthStroke, String type) {
+        this.UNCalendar = UNCalendar;
         this.colorBackground = colorBackground;
         this.colorStroke = colorStroke;
         this.widthStroke = widthStroke;
@@ -20,12 +19,12 @@ public class CalendarCustomObject {
     public CalendarCustomObject() {
     }
 
-    public Calendar getCalendar() {
-        return calendar;
+    public UNCalendar getUNCalendar() {
+        return UNCalendar;
     }
 
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
+    public void setUNCalendar(UNCalendar UNCalendar) {
+        this.UNCalendar = UNCalendar;
     }
 
     public String getColorBackground() {

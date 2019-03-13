@@ -14,27 +14,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class GridDateAdapter extends BaseAdapter {
     private List<CalendarCustomObject> dateNumber;
     private Context context;
-    private List<Map<String, List<CalendarCustomObject>>> rangeDates;
+    private List<CalendarCustomObject> rangeDates;
     private String dateColor = "#000000";
     private int dateSize = 14;
     private String strokeCircleColor = "#000000";
 
-    GridDateAdapter(Context context, List<CalendarCustomObject> dateNumber, List<Map<String, List<CalendarCustomObject>>> rangeDates) {
-        this.dateNumber = dateNumber;
-        this.context = context;
-        this.rangeDates = rangeDates;
-    }
-
-    GridDateAdapter(Context context, List<CalendarCustomObject> dateNumber, List<Map<String, List<CalendarCustomObject>>> rangeDates,
+    GridDateAdapter(Context context, List<CalendarCustomObject> dateNumber, List<CalendarCustomObject> rangeDates,
                     String dateColor, Integer dateSize, String strokeCircleColor) {
+
         this.dateNumber = dateNumber;
         this.context = context;
         this.rangeDates = rangeDates;
@@ -73,19 +65,19 @@ public class GridDateAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        if (calendarCustomObject != null && calendarCustomObject.getCalendar() != null) {
+        if (calendarCustomObject != null && calendarCustomObject.getUNCalendar() != null) {
             Calendar calendar = Calendar.getInstance();
-            calendar.set(calendarCustomObject.getCalendar().get(Calendar.YEAR), calendarCustomObject.getCalendar().get(Calendar.MONTH),
-                    calendarCustomObject.getCalendar().get(Calendar.DATE));
+            calendar.set(calendarCustomObject.getUNCalendar().getYear(), calendarCustomObject.getUNCalendar().getMonth(),
+                    calendarCustomObject.getUNCalendar().getDate());
             viewHolder.date.setText(String.valueOf(calendar.get(Calendar.DATE)));
             viewHolder.date.setTextSize(dateSize);
             viewHolder.date.setTextColor(Color.parseColor(dateColor));
-            setCircle(viewHolder, calendarCustomObject.getCalendar());
-            Map<String, List<CalendarCustomObject>> map = getCurrentCalendarObjectBelongTo(rangeDates, calendarCustomObject);
-            if (map != null) {
+            setCircle(viewHolder, calendarCustomObject.getUNCalendar());
+            List<CalendarCustomObject> calendarCustomObjectList = getCurrentCalendarObjectBelongTo(rangeDates, calendarCustomObject);
+            if (calendarCustomObjectList != null) {
                 try {
-                    if (DateUtils.checkIfDateInRange(Objects.requireNonNull(map.get(calendarCustomObject.getType())), calendarCustomObject)) {
-                        CalendarCustomObject tempCal = Objects.requireNonNull(map.get(calendarCustomObject.getType())).get(0);
+                    if (DateUtils.checkIfDateInRange(calendarCustomObjectList, calendarCustomObject)) {
+                        CalendarCustomObject tempCal = calendarCustomObjectList.get(0);
                         viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.square));
                         setColorForBackgroundAndStroke(viewHolder.container, tempCal);
                         viewHolder.container.setPadding(0, -15, 0, -15);
@@ -153,21 +145,18 @@ public class GridDateAdapter extends BaseAdapter {
         }
     }
 
-    private Map<String, List<CalendarCustomObject>> getCurrentCalendarObjectBelongTo(List<Map<String, List<CalendarCustomObject>>> mapList,
-                                                                                     CalendarCustomObject calendarCustomObject) {
+    private List<CalendarCustomObject> getCurrentCalendarObjectBelongTo(
+            List<CalendarCustomObject> customObjects, CalendarCustomObject calendarCustomObject) {
         if (calendarCustomObject == null || calendarCustomObject.getType() == null || calendarCustomObject.getType().isEmpty()) {
             return null;
         }
-        Map<String, List<CalendarCustomObject>> tempMap = new HashMap<>();
         List<CalendarCustomObject> calendarCustomObjects = new ArrayList<>();
-        for (Map<String, List<CalendarCustomObject>> map : mapList) {
-            List<CalendarCustomObject> calendarCustomObjects1 = map.get(calendarCustomObject.getType());
-            if (calendarCustomObjects1 != null) {
-                calendarCustomObjects.addAll(calendarCustomObjects1);
+        for (CalendarCustomObject calendarCustomObjects1 : customObjects) {
+            if (calendarCustomObjects1 != null && calendarCustomObjects1.getType().equals(calendarCustomObject.getType())) {
+                calendarCustomObjects.add(calendarCustomObjects1);
             }
         }
-        tempMap.put(calendarCustomObject.getType(), calendarCustomObjects);
-        return tempMap;
+        return calendarCustomObjects;
     }
 
     private void setColorForBackgroundAndStroke(View view, CalendarCustomObject calendarCustomObject) {
@@ -185,17 +174,16 @@ public class GridDateAdapter extends BaseAdapter {
         if (strokeColor == null) {
             return;
         }
-        UIUtils.setColorBackground(view, "#00FFFFFF", strokeColor);
+        UIUtils.setColorBackground(view, "#FFFFFF", strokeColor);
     }
 
-    private void setCircle(ViewHolder viewHolder, Calendar compareDate) {
+    private void setCircle(ViewHolder viewHolder, UNCalendar compareDate) {
         Calendar calendar = DateUtils.getCurrentDate();
-        if (compareDate.get(Calendar.DATE) == calendar.get(Calendar.DATE) &&
-                compareDate.get(Calendar.YEAR) == calendar.get(Calendar.YEAR) &&
-                compareDate.get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+        if (compareDate.getDate() == calendar.get(Calendar.DATE) &&
+                compareDate.getYear() == calendar.get(Calendar.YEAR) &&
+                compareDate.getMonth() == calendar.get(Calendar.MONTH)) {
             viewHolder.date.setBackground(ContextCompat.getDrawable(context, R.drawable.circle));
             viewHolder.date.setTypeface(null, Typeface.BOLD);
-            setColorStroke(viewHolder.date, strokeCircleColor);
         }
     }
 

@@ -5,10 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import nguyenngoctan44.io.uranashel_multirangecalendarview.CalendarCustomObject;
+import nguyenngoctan44.io.uranashel_multirangecalendarview.UNCalendar;
 import nguyenngoctan44.io.uranashel_multirangecalendarview.UNMultiRangeCalendarView;
 
 
@@ -26,22 +26,43 @@ public class MainActivity extends AppCompatActivity {
 
         List<CalendarCustomObject> calendarCustomObjects = new ArrayList<>();
 
-        for (int i = 0; i < 4; i++) {
-            CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
+        CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
+        UNCalendar unCalendar;
 
-            calendarCustomObject.setType(Arrays.asList(types).get(i));
-            calendarCustomObject.setColorBackground("#e4fffd");
-            calendarCustomObject.setColorStroke("#00aa9c");
+        calendarCustomObject.setType(Arrays.asList(types).get(0));
+        calendarCustomObject.setColorBackground("#e4fffd");
+        calendarCustomObject.setColorStroke("#00aa9c");
+        unCalendar = new UNCalendar(2018, 12, 12);
+        calendarCustomObject.setUNCalendar(unCalendar);
+        calendarCustomObjects.add(calendarCustomObject);
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.YEAR, 2019);
-            calendar.set(Calendar.MONTH, i <= 1 ? 3 : 4);
-            calendar.set(Calendar.DATE, i + 1);
 
-            calendarCustomObject.setCalendar(calendar);
+        calendarCustomObject = new CalendarCustomObject();
+        calendarCustomObject.setType(Arrays.asList(types).get(0));
+        calendarCustomObject.setColorBackground("#e4fffd");
+        calendarCustomObject.setColorStroke("#00aa9c");
+        unCalendar = new UNCalendar(2019, 1, 30);
+        calendarCustomObject.setUNCalendar(unCalendar);
+        calendarCustomObjects.add(calendarCustomObject);
 
-            calendarCustomObjects.add(calendarCustomObject);
-        }
+        calendarCustomObject = new CalendarCustomObject();
+        calendarCustomObject.setType(Arrays.asList(types).get(0));
+        calendarCustomObject.setColorBackground("#e4fffd");
+        calendarCustomObject.setColorStroke("#00aa9c");
+        unCalendar = new UNCalendar(2019, 1, 31);
+        calendarCustomObject.setUNCalendar(unCalendar);
+        calendarCustomObjects.add(calendarCustomObject);
+
+
+        calendarCustomObject = new CalendarCustomObject();
+        calendarCustomObject.setType(Arrays.asList(types).get(0));
+        calendarCustomObject.setColorBackground("#e4fffd");
+        calendarCustomObject.setColorStroke("#00aa9c");
+        unCalendar = new UNCalendar(2019, 3, 12);
+        calendarCustomObject.setUNCalendar(unCalendar);
+        calendarCustomObjects.add(calendarCustomObject);
+
+
         unMultiRangeCalendarView.setCommonDatesDataInAMonth(calendarCustomObjects);
         unMultiRangeCalendarView.setColorBackgroundCalendar("#ffffff");
         unMultiRangeCalendarView.setTextSize(13);

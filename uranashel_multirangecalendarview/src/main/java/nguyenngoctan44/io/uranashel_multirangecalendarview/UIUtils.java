@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 class UIUtils {
     static void setColorBackground(View view, String colorBackground, String colorStroke) {
-        Log.d("====", String.valueOf(view.getBackground()));
         try {
             Drawable background = view.getBackground();
             if (background instanceof ShapeDrawable) {

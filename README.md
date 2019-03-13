@@ -1,5 +1,5 @@
 # CustomCalendarView
-Hi everyone, this is the first library support multirange for calendar view.
+Hi everyone, this is the first library support multirange for UNCalendar view.
 
 This will be updated more function in the nearest future. Dont be messed up with multirange, will be cool!
 
@@ -37,12 +37,12 @@ How to use this lib:
             calendarCustomObject.setColorBackground(Arrays.asList(colors).get(i));
             calendarCustomObject.setColorStroke("#26b3a6");
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.YEAR, 2019);
-            calendar.set(Calendar.MONTH, i <= 1 ? 3 : 4);
-            calendar.set(Calendar.DATE, i + 1);
+            Calendar UNCalendar = Calendar.getInstance();
+            UNCalendar.set(Calendar.YEAR, 2019);
+            UNCalendar.set(Calendar.MONTH, i <= 1 ? 3 : 4);
+            UNCalendar.set(Calendar.DATE, i + 1);
 
-            calendarCustomObject.setCalendar(calendar);
+            calendarCustomObject.setCalendar(UNCalendar);
 
             calendarCustomObjects.add(calendarCustomObject);
         }

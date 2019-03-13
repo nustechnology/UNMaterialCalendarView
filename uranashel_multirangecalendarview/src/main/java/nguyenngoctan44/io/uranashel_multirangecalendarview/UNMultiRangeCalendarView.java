@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -13,9 +14,7 @@ import android.widget.TextView;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UNMultiRangeCalendarView extends LinearLayout implements View.OnClickListener {
     private Button btnNext, btnPrevious;
@@ -25,7 +24,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
     private GridDateAdapter gridDateAdapter;
     private List<CalendarCustomObject> calendars = new ArrayList<>();
     private List<CalendarCustomObject> customObjectArrayList = new ArrayList<>();
-    private List<Map<String, List<CalendarCustomObject>>> stringListMap = new ArrayList<>();
+    private List<CalendarCustomObject> calendarCustomObjectArrayListWillBeDrawn = new ArrayList<>();
     private Calendar currentCalendar = Calendar.getInstance();
     private int MAX_DATE;
     private int FIRST_DAY;
@@ -74,13 +73,14 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         customObjectArrayList.clear();
         customObjectArrayList.addAll(calendarCustomObjectsHasBeenMarked);
         //Set string map
-        stringListMap.clear();
+        calendarCustomObjectArrayListWillBeDrawn.clear();
         for (CalendarCustomObject calendarCustomObject : calendarCustomObjectsHasBeenMarked) {
-            Calendar calendar = calendarCustomObject.getCalendar();
-            stringListMap.add(addNewCalendarCustomObject(calendarCustomObject.getCalendar().get(Calendar.DATE), calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.YEAR), calendarCustomObject.getType(), calendarCustomObject.getColorBackground(), calendarCustomObject.getColorStroke()));
+            Log.d("======Common", calendarCustomObject.getUNCalendar().getDate() + "_" + (calendarCustomObject.getUNCalendar().getMonth()) + "_" + calendarCustomObject.getUNCalendar().getYear() + "_" +
+                    calendarCustomObject.getType());
+            calendarCustomObjectArrayListWillBeDrawn.add(addNewCalendarCustomObject(calendarCustomObject.getUNCalendar().getDate(), calendarCustomObject.getUNCalendar().getMonth(),
+                    calendarCustomObject.getUNCalendar().getYear(), calendarCustomObject.getType(), calendarCustomObject.getColorBackground(), calendarCustomObject.getColorStroke()));
         }
-        setupMockCalendar(calendarCustomObjectsHasBeenMarked);
+        setupMockCalendar(calendarCustomObjectArrayListWillBeDrawn);
     }
 
     private void settingDeltaDates() {
@@ -98,15 +98,13 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         for (int j = 1; j <= MAX_DATE; j++) {
             CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
 
-            Calendar newCalendar = Calendar.getInstance();
-            newCalendar.set(currentYear, currentMonth, j);
-            calendarCustomObject.setCalendar(newCalendar);
+            calendarCustomObject.setUNCalendar(new UNCalendar(getCurrentYear(), getCurrentMonth(), j));
             calendarCustomObject.setType("");
             if (calendarCustomObjectsHasBeenMarked != null) {
                 for (CalendarCustomObject calendarCustomObject1 : calendarCustomObjectsHasBeenMarked) {
-                    if (j == calendarCustomObject1.getCalendar().get(Calendar.DATE) &&
-                            currentMonth == calendarCustomObject1.getCalendar().get(Calendar.MONTH) - 1 &&
-                            currentYear == calendarCustomObject1.getCalendar().get(Calendar.YEAR)) {
+                    if (j == calendarCustomObject1.getUNCalendar().getDate() &&
+                            currentMonth == calendarCustomObject1.getUNCalendar().getMonth() - 1 &&
+                            currentYear == calendarCustomObject1.getUNCalendar().getYear()) {
                         calendarCustomObject.setColorBackground(calendarCustomObject1.getColorBackground());
                         calendarCustomObject.setColorStroke(calendarCustomObject1.getColorStroke());
                         calendarCustomObject.setType(calendarCustomObject1.getType());
@@ -153,7 +151,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
     }
 
     public void build() {
-        gridDateAdapter = new GridDateAdapter(getContext(), calendars, stringListMap, getTextColor(), getTextSize(), getStrokeColorCircle());
+        gridDateAdapter = new GridDateAdapter(getContext(), calendars, calendarCustomObjectArrayListWillBeDrawn, getTextColor(), getTextSize(), getStrokeColorCircle());
         gridDate.setVerticalSpacing(getVerticalSpacing());
         gridDate.setAdapter(gridDateAdapter);
     }
@@ -199,24 +197,15 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         textTime.setText(new DateFormatSymbols().getMonths()[currentMonth] + " " + currentYear);
     }
 
-    private Map<String, List<CalendarCustomObject>> addNewCalendarCustomObject(int date, int month, int year, String type,
-                                                                               String colorBackground, String colorStroke) {
-        Map<String, List<CalendarCustomObject>> map = new HashMap<>();
-        List<CalendarCustomObject> calendarCustomObjects = new ArrayList<>();
+    private CalendarCustomObject addNewCalendarCustomObject(int date, int month, int year, String type,
+                                                            String colorBackground, String colorStroke) {
         CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
-
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.set(year, month - 1, date);
-
         calendarCustomObject.setColorBackground(colorBackground);
         calendarCustomObject.setColorStroke(colorStroke);
         calendarCustomObject.setWidthStroke(5);
         calendarCustomObject.setType(type);
-        calendarCustomObject.setCalendar(calendar1);
-        calendarCustomObjects.add(calendarCustomObject);
-
-        map.put(type, calendarCustomObjects);
-        return map;
+        calendarCustomObject.setUNCalendar(new UNCalendar(year, month, date));
+        return calendarCustomObject;
     }
 
     public String getColorBackgroundCalendar() {
@@ -237,7 +226,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         }
         settingDate();
         setupMockCalendar(customObjectArrayList);
-
+        build();
         textTime.setText(new DateFormatSymbols().getMonths()[getCurrentMonth()] + "  " + getCurrentYear());
         build();
     }
@@ -251,8 +240,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         }
         settingDate();
         setupMockCalendar(customObjectArrayList);
-        gridDateAdapter = new GridDateAdapter(getContext(), calendars, stringListMap);
-        gridDate.setAdapter(gridDateAdapter);
+        build();
         textTime.setText(new DateFormatSymbols().getMonths()[getCurrentMonth()] + "  " + getCurrentYear());
         build();
     }
