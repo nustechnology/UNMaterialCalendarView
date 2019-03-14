@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         calendarCustomObjects.add(calendarCustomObject);
 
 
-        LocalDate dateStart = new LocalDate("2019-3-26");
+        LocalDate dateStart = new LocalDate("2019-3-21");
         LocalDate dateEnd = new LocalDate("2019-3-28");
         while (dateStart.isBefore(dateEnd) || dateStart.equals(dateEnd)) {
 
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         LocalDate dateStart1 = new LocalDate("2019-3-29");
-        LocalDate dateEnd1 = new LocalDate("2019-3-29");
+        LocalDate dateEnd1 = new LocalDate("2019-3-30");
         while (dateStart1.isBefore(dateEnd1) || dateStart1.equals(dateEnd1)) {
 
             calendarCustomObject = new CalendarCustomObject();

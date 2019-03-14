@@ -105,6 +105,7 @@ public class GridDateAdapter extends BaseAdapter {
                             if (customObjectNext.getType().equals(calendarCustomObject.getType())) {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.square));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                                setMarginForView(viewHolder.container, -5, 0, -5, 0);
                             } else {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_right));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
@@ -126,6 +127,7 @@ public class GridDateAdapter extends BaseAdapter {
                             if (customObjectNext.getType().equals(calendarCustomObject.getType()) && customObjectPre.getType().equals(calendarCustomObject.getType())) {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.square));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                                setMarginForView(viewHolder.container, -5, 0, -5, 0);
                             } else if (customObjectNext.getType().equals(calendarCustomObject.getType()) && !customObjectPre.getType().equals(calendarCustomObject.getType())) {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_left));
                                 setMarginForView(viewHolder.container, 5, 0, 0, 0);
