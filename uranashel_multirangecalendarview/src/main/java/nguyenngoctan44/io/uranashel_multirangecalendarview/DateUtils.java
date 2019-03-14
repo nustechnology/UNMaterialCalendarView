@@ -1,7 +1,10 @@
 package nguyenngoctan44.io.uranashel_multirangecalendarview;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -32,6 +35,48 @@ class DateUtils {
         }
         return false;
     }
+
+    /**
+     * Check if dates contains one date is first date
+     *
+     * @param calendar
+     * @param calendars
+     * @return
+     */
+    static boolean checkIfDateIsHeadOfListDates(List<CalendarCustomObject> calendars, CalendarCustomObject calendar) {
+        if (calendars == null) {
+            return false;
+        }
+        if (calendars.isEmpty()) {
+            return true;
+        }
+        List<CalendarCustomObject> calendarCustomObjects = getFirstAvailabilityData(calendars);
+        UNCalendar unCalendar = calendarCustomObjects.get(0).getUNCalendar();
+        return unCalendar.getDate() == calendar.getUNCalendar().getDate() &&
+                unCalendar.getMonth() == calendar.getUNCalendar().getMonth() &&
+                unCalendar.getYear() == calendar.getUNCalendar().getYear();
+    }
+
+    /**
+     * Check if dates contains one date is latest date
+     *
+     * @param calendar
+     * @param calendars
+     * @return
+     */
+    static boolean checkIfDateIsTailOfListDates(List<CalendarCustomObject> calendars, CalendarCustomObject calendar) {
+        if (calendars == null) {
+            return false;
+        }
+        if (calendars.isEmpty()) {
+            return true;
+        }
+        UNCalendar unCalendar = calendars.get(calendars.size() - 1).getUNCalendar();
+        return unCalendar.getDate() == calendar.getUNCalendar().getDate() &&
+                unCalendar.getMonth() == calendar.getUNCalendar().getMonth() &&
+                unCalendar.getYear() == calendar.getUNCalendar().getYear();
+    }
+
 
     private static List<CalendarCustomObject> getFirstAvailabilityData(List<CalendarCustomObject> calendarCustomObjects) {
         List<CalendarCustomObject> calendarCustomObjects1 = new ArrayList<>();

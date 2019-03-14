@@ -3,6 +3,8 @@ package io.app;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import org.joda.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,6 +63,22 @@ public class MainActivity extends AppCompatActivity {
         unCalendar = new UNCalendar(2019, 3, 12);
         calendarCustomObject.setUNCalendar(unCalendar);
         calendarCustomObjects.add(calendarCustomObject);
+
+
+        LocalDate dateStart = new LocalDate("2019-3-13");
+        LocalDate dateEnd = new LocalDate("2019-3-16");
+        while (dateStart.isBefore(dateEnd) || dateStart.equals(dateEnd)) {
+
+            calendarCustomObject = new CalendarCustomObject();
+
+            calendarCustomObject.setType(Arrays.asList(types).get(1));
+            calendarCustomObject.setColorBackground("#e4fffd");
+            calendarCustomObject.setColorStroke("#00aa9c");
+
+            calendarCustomObject.setUNCalendar(new UNCalendar(dateStart.getYear(), dateStart.getMonthOfYear(), dateStart.getDayOfMonth()));
+            calendarCustomObjects.add(calendarCustomObject);
+            dateStart = dateStart.plusDays(1);
+        }
 
 
         unMultiRangeCalendarView.setCommonDatesDataInAMonth(calendarCustomObjects);

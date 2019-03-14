@@ -4,11 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,7 +60,7 @@ public class GridDateAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (view == null) {
             viewHolder = new ViewHolder();
-            view = layoutInflater.inflate(R.layout.item_date, null);
+            view = layoutInflater.inflate(R.layout.item_layout, null);
             viewHolder.date = view.findViewById(R.id.dateNumber);
             viewHolder.containerCircle = view.findViewById(R.id.containerCircle);
             viewHolder.container = view.findViewById(R.id.container);
@@ -73,15 +76,18 @@ public class GridDateAdapter extends BaseAdapter {
             viewHolder.date.setTextSize(dateSize);
             viewHolder.date.setTextColor(Color.parseColor(dateColor));
             setCircle(viewHolder, calendarCustomObject.getUNCalendar());
+            setColorStroke(viewHolder.date, strokeCircleColor);
             List<CalendarCustomObject> calendarCustomObjectList = getCurrentCalendarObjectBelongTo(rangeDates, calendarCustomObject);
             if (calendarCustomObjectList != null) {
                 try {
                     if (DateUtils.checkIfDateInRange(calendarCustomObjectList, calendarCustomObject)) {
                         CalendarCustomObject tempCal = calendarCustomObjectList.get(0);
                         viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.square));
+                        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) viewHolder.container.getLayoutParams();
+                        layoutParams.height = (int) UIUtils.convertDpToPixel(25, context);
+                        layoutParams.gravity = Gravity.CENTER;
+                        viewHolder.container.setLayoutParams(layoutParams);
                         setColorForBackgroundAndStroke(viewHolder.container, tempCal);
-                        viewHolder.container.setPadding(0, -15, 0, -15);
-
                         CalendarCustomObject customObjectNext = (i + 1 >= dateNumber.size() ? null : dateNumber.get(i + 1));
                         CalendarCustomObject customObjectPre = (i - 1 < 0 ? null : dateNumber.get(i - 1));
 
@@ -142,6 +148,12 @@ public class GridDateAdapter extends BaseAdapter {
         if (view instanceof LinearLayout) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
             params.setMargins(marginSide, 0, marginSide, 0);
+            view.setLayoutParams(params);
+        }
+        if (view instanceof FrameLayout) {
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+            params.setMargins(marginSide, 0, marginSide, 0);
+            view.setLayoutParams(params);
         }
     }
 
@@ -174,7 +186,7 @@ public class GridDateAdapter extends BaseAdapter {
         if (strokeColor == null) {
             return;
         }
-        UIUtils.setColorBackground(view, "#FFFFFF", strokeColor);
+        UIUtils.setColorBackground(view, null, strokeColor);
     }
 
     private void setCircle(ViewHolder viewHolder, UNCalendar compareDate) {
@@ -189,8 +201,7 @@ public class GridDateAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         TextView date;
-        LinearLayout containerCircle;
-        LinearLayout container;
+        FrameLayout containerCircle;
+        FrameLayout container;
     }
 }
-

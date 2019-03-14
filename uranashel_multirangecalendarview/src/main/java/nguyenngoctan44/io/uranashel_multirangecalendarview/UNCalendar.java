@@ -37,4 +37,13 @@ public class UNCalendar {
     public void setDate(int date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "UNCalendar{" +
+                "year=" + year +
+                ", month=" + month +
+                ", date=" + date +
+                '}';
+    }
 }

@@ -6,9 +6,9 @@
     android:layout_marginStart="2dp"
     android:layout_marginEnd="2dp"
     android:clickable="false"
+    android:adjustViewBounds="true"
     android:focusable="false"
     android:orientation="vertical">
-
 
     <FrameLayout
         android:id="@+id/containerDate"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/containerCircle"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -28,23 +28,22 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/dateNumber"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:textStyle="normal"/>
-            </LinearLayout>
-
-        </LinearLayout>
+            </FrameLayout>
+            <TextView
+                android:id="@+id/dateNumber"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="normal"/>
+        </FrameLayout>
     </FrameLayout>
 </LinearLayout>

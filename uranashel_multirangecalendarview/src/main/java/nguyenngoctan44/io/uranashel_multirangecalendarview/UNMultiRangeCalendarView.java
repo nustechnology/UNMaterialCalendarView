@@ -75,8 +75,6 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         //Set string map
         calendarCustomObjectArrayListWillBeDrawn.clear();
         for (CalendarCustomObject calendarCustomObject : calendarCustomObjectsHasBeenMarked) {
-            Log.d("======Common", calendarCustomObject.getUNCalendar().getDate() + "_" + (calendarCustomObject.getUNCalendar().getMonth()) + "_" + calendarCustomObject.getUNCalendar().getYear() + "_" +
-                    calendarCustomObject.getType());
             calendarCustomObjectArrayListWillBeDrawn.add(addNewCalendarCustomObject(calendarCustomObject.getUNCalendar().getDate(), calendarCustomObject.getUNCalendar().getMonth(),
                     calendarCustomObject.getUNCalendar().getYear(), calendarCustomObject.getType(), calendarCustomObject.getColorBackground(), calendarCustomObject.getColorStroke()));
         }
