@@ -59,7 +59,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         gridDate = findViewById(R.id.gridDate);
 
         gridDate.setBackgroundColor(Color.parseColor(getColorBackgroundCalendar()));
-        gridDate.setVerticalSpacing(getVerticalSpacing());
+        gridDate.setVerticalSpacing((int) UIUtils.convertDpToPixel(getVerticalSpacing(), getContext()));
         initData();
         regEvents();
     }

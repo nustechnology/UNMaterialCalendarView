@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -94,10 +93,12 @@ public class GridDateAdapter extends BaseAdapter {
                         if (customObjectNext == null) {
                             viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_right));
                             setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                            setMarginForView(viewHolder.container, 0, 0, 5, 0);
                         }
                         if (customObjectPre == null) {
                             viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_left));
                             setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                            setMarginForView(viewHolder.container, 5, 0, 0, 0);
                         }
 
                         if (customObjectNext != null && customObjectPre == null) {
@@ -107,16 +108,18 @@ public class GridDateAdapter extends BaseAdapter {
                             } else {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_right));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                                setMarginForView(viewHolder.container, 0, 0, 5, 0);
                             }
                         }
                         if (customObjectPre != null && customObjectNext == null) {
                             if (customObjectPre.getType().equals(calendarCustomObject.getType())) {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_right));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                                setMarginForView(viewHolder.container, 0, 0, 5, 0);
                             } else {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_rounded));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
-                                setMarginForView(viewHolder.container, 5);
+                                setMarginForView(viewHolder.container, 5, 0, 5, 0);
                             }
                         }
                         if (customObjectNext != null && customObjectPre != null) {
@@ -125,14 +128,16 @@ public class GridDateAdapter extends BaseAdapter {
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
                             } else if (customObjectNext.getType().equals(calendarCustomObject.getType()) && !customObjectPre.getType().equals(calendarCustomObject.getType())) {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_left));
+                                setMarginForView(viewHolder.container, 5, 0, 0, 0);
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
                             } else if (!customObjectNext.getType().equals(calendarCustomObject.getType()) && customObjectPre.getType().equals(calendarCustomObject.getType())) {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_right));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
+                                setMarginForView(viewHolder.container, 0, 0, 5, 0);
                             } else {
                                 viewHolder.container.setBackground(ContextCompat.getDrawable(context, R.drawable.circle_rounded));
                                 setColorForBackgroundAndStroke(viewHolder.container, tempCal);
-                                setMarginForView(viewHolder.container, 5);
+                                setMarginForView(viewHolder.container, 5, 0, 5, 0);
                             }
                         }
                     }
@@ -144,15 +149,15 @@ public class GridDateAdapter extends BaseAdapter {
         return view;
     }
 
-    private void setMarginForView(View view, int marginSide) {
+    private void setMarginForView(View view, int left, int top, int right, int bottom) {
         if (view instanceof LinearLayout) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
-            params.setMargins(marginSide, 0, marginSide, 0);
+            params.setMargins(left, top, right, bottom);
             view.setLayoutParams(params);
         }
         if (view instanceof FrameLayout) {
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
-            params.setMargins(marginSide, 0, marginSide, 0);
+            params.setMargins(left, top, right, bottom);
             view.setLayoutParams(params);
         }
     }
