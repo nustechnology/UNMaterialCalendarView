@@ -74,3 +74,13 @@ How to use this lib:
     }
 
 ***Note: Do not use the color format with 3 characters. Let use with full 6 characters, like here: #xxxxxx, not #xxx
+
+
+If you gonna change the language, please specify some values of string in xml file such as:
+    <string name="mo">Mo</string>
+    <string name="tu">Tu</string>
+    <string name="we">We</string>
+    <string name="th">Th</string>
+    <string name="fr">Fr</string>
+    <string name="sa">Sa</string>
+    <string name="su">Su</string>
