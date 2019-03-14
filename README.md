@@ -16,16 +16,14 @@ How to use this lib:
             android:layout_height="match_parent"/>
     ***In class***:
     
-    @Override
+  @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo);
 
-        UNMultiRangeCalendarView unMultiRangeCalendarView;
-        String[] types = new String[]{"Who", "Are", "You", "Guys"};
-        String[] colors = new String[]{"#6abd45", "#e4fffd", "#e4fffd", "#6abd45"};
+        unMultiRangeCalendarView = findViewById(R.id.multiRangeUraNashelCalendar);
 
-       List<CalendarCustomObject> calendarCustomObjects = new ArrayList<>();
+        List<CalendarCustomObject> calendarCustomObjects = new ArrayList<>();
 
         CalendarCustomObject calendarCustomObject = new CalendarCustomObject();
         UNCalendar unCalendar;
@@ -62,6 +60,37 @@ How to use this lib:
         unCalendar = new UNCalendar(2019, 3, 12);
         calendarCustomObject.setUNCalendar(unCalendar);
         calendarCustomObjects.add(calendarCustomObject);
+
+
+        LocalDate dateStart = new LocalDate("2019-3-26");
+        LocalDate dateEnd = new LocalDate("2019-3-28");
+        while (dateStart.isBefore(dateEnd) || dateStart.equals(dateEnd)) {
+
+            calendarCustomObject = new CalendarCustomObject();
+
+            calendarCustomObject.setType(Arrays.asList(types).get(2));
+            calendarCustomObject.setColorBackground("#e4fffd");
+            calendarCustomObject.setColorStroke("#00aa9c");
+
+            calendarCustomObject.setUNCalendar(new UNCalendar(dateStart.getYear(), dateStart.getMonthOfYear(), dateStart.getDayOfMonth()));
+            calendarCustomObjects.add(calendarCustomObject);
+            dateStart = dateStart.plusDays(1);
+        }
+
+        LocalDate dateStart1 = new LocalDate("2019-3-29");
+        LocalDate dateEnd1 = new LocalDate("2019-3-29");
+        while (dateStart1.isBefore(dateEnd1) || dateStart1.equals(dateEnd1)) {
+
+            calendarCustomObject = new CalendarCustomObject();
+
+            calendarCustomObject.setType(Arrays.asList(types).get(1));
+            calendarCustomObject.setColorBackground("#e4fffd");
+            calendarCustomObject.setColorStroke("#00aa9c");
+
+            calendarCustomObject.setUNCalendar(new UNCalendar(dateStart1.getYear(), dateStart1.getMonthOfYear(), dateStart1.getDayOfMonth()));
+            calendarCustomObjects.add(calendarCustomObject);
+            dateStart1 = dateStart1.plusDays(1);
+        }
 
 
         unMultiRangeCalendarView.setCommonDatesDataInAMonth(calendarCustomObjects);
