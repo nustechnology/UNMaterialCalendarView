@@ -106,10 +106,23 @@ How to use this lib:
 
 
 If you gonna change the language, please specify some values of string in xml file such as:
-    <string name="mo">Mo</string>
-    <string name="tu">Tu</string>
-    <string name="we">We</string>
-    <string name="th">Th</string>
-    <string name="fr">Fr</string>
-    <string name="sa">Sa</string>
-    <string name="su">Su</string>
+
+     ```<resources>
+     
+        <string name="mo">Mo</string>
+        
+        <string name="tu">Tu</string>
+        
+        <string name="we">We</string>
+        
+        <string name="th">Th</string>
+        
+        <string name="fr">Fr</string>
+        
+        <string name="sa">Sa</string>
+        
+        <string name="su">Su</string>
+        
+    </resources>```
+    
+
