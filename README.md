@@ -9,15 +9,15 @@ How to install:
     
 How to use this lib:
     
-    ***In xml file***:
+    In xml file:
         <nguyenngoctan44.io.uranashel_multirangecalendarview.UNMultiRangeCalendarView
             android:id="@+id/calenderView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    ***In class***:
+    In class:
     
-  @Override
-    protected void onCreate(Bundle savedInstanceState) {
+      ```@Override
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo);
 
@@ -100,7 +100,7 @@ How to use this lib:
         unMultiRangeCalendarView.setStrokeColorCircle("#363636");
         unMultiRangeCalendarView.setVerticalSpacing(-60); // Any value what you want to reduce the spacing between row in gridview
         unMultiRangeCalendarView.build();
-    }
+    }```
 
 ***Note: Do not use the color format with 3 characters. Let use with full 6 characters, like here: #xxxxxx, not #xxx
 
