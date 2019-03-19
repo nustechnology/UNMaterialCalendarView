@@ -3,6 +3,8 @@ Hi everyone, this is the first library support multirange for UNCalendar view.
 
 This will be updated more function in the nearest future. Dont be messed up with multirange, will be cool!
 
+![alt text](http://oi67.tinypic.com/1628to8.jpg)
+
 How to install:
 
 ***implementation 'com.github.ngoctan95:CustomCalendarView:{lastest-version}'***
