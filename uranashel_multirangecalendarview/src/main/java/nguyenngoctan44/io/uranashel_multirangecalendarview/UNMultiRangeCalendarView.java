@@ -228,6 +228,17 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
         textTime.setText(new DateFormatSymbols().getMonths()[getCurrentMonth()] + "  " + getCurrentYear());
         build();
     }
+    
+    @SuppressLint("SetTextI18n")
+    public void goToSpecifyMonth(month, year) {
+        setCurrentMonth(month);
+        setCurrentYear(year;
+        settingDate();
+        setupMockCalendar(customObjectArrayList);
+        build();
+        textTime.setText(new DateFormatSymbols().getMonths()[getCurrentMonth()] + "  " + getCurrentYear());
+        build();
+    }
 
     @SuppressLint("SetTextI18n")
     public void backToPreviousMonth() {
