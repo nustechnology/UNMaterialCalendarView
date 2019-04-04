@@ -230,7 +230,7 @@ public class UNMultiRangeCalendarView extends LinearLayout implements View.OnCli
     }
 
     @SuppressLint("SetTextI18n")
-    public void goToSpecifyMonth(month, year) {
+    public void goToSpecifyMonth(int month, int year) {
         setCurrentMonth(month);
         setCurrentYear(year);
         settingDate();
